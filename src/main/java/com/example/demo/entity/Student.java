@@ -45,4 +45,10 @@ public class Student {
     @Column(name = "age", nullable = false)
     private Integer age;
 
+    public Student(String first_name, String last_name, String email, int age) {
+        setFirstName(first_name);
+        setLastName(last_name);
+        setEmail(email);
+        setAge(age);
+    }
 }
