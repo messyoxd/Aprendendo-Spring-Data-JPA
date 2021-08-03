@@ -1,0 +1,22 @@
+version: "3.5"
+
+services:
+  db:
+    image: messyo-domestic-postgres:latest
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: messyo-domestic-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      TZ: America/Fortaleza
+      POSTGRES_PASSWORD:      ${POSTGRES_PASSWORD}
+      POSTGRES_USER:          ${POSTGRES_USER}
+      POSTGRES_DB:            ${POSTGRES_DB}
+    networks: 
+      - domestic-network
+networks: 
+  domestic-network:
+    name: domestic-network
+    driver: bridge
