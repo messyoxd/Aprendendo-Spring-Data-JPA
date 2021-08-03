@@ -8,6 +8,12 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity(name = "Student")
+@Table(
+        name = "student",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "student_email_unique", columnNames = "email")
+        }
+)
 @Data
 @Builder
 @AllArgsConstructor
@@ -15,15 +21,28 @@ import javax.persistence.*;
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "student_sequence",
+            sequenceName = "student_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_sequence")
+    @Column(
+            name = "id",
+            updatable = false
+    )
     private Long id;
-    @Column(nullable = false)
+
+    @Column(name = "first_name", nullable = false, columnDefinition = "TEXT")
     private String firstName;
-    @Column(nullable = false)
+
+    @Column(name = "last_name", nullable = false, columnDefinition = "TEXT")
     private String lastName;
-    @Column(nullable = false, unique = true)
+
+    @Column(name = "email", nullable = false, columnDefinition = "TEXT")
     private String email;
-    @Column(nullable = false)
+
+    @Column(name = "age", nullable = false)
     private Integer age;
 
 }
